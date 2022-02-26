@@ -9,14 +9,14 @@ def index(request):
     return render(request,"index.html")
 def about(request):
     return render(request,"about.html")
-@login_required(login_url="user:login")
+@login_required(login_url="login")
 def dashboard(request):
     articles = Article.objects.filter(author=request.user)
     context = {
         "articles":articles
     }
     return render(request,"article/dashboard.html",context)
-@login_required(login_url="user:login")
+@login_required(login_url="login")
 def addarticle(request):
     form = articleForm(request.POST or None)
     if form.is_valid():
@@ -35,7 +35,7 @@ def detail(request,id):
         "post":post
     }
     return render(request,"article/detail.html",context)
-@login_required(login_url="user:login")
+@login_required(login_url="login")
 def updateArticle(request,id):
     myarticle = get_object_or_404(Article,id=id)
     form = articleForm(request.POST or None, instance=myarticle)
@@ -48,7 +48,8 @@ def updateArticle(request,id):
     context = {
         "form": form
     }
-@login_required(login_url="user:login")
+    return render(request,"article/update.html",context)
+@login_required(login_url="login")
 def deleteArticle(request,id):
     myarticle = get_object_or_404(Article,id=id)
     myarticle.delete()
