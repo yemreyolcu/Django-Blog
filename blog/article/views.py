@@ -2,18 +2,21 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import articleForm
 from .models import Article
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index(request):
     return render(request,"index.html")
 def about(request):
     return render(request,"about.html")
+@login_required(login_url="user:login")
 def dashboard(request):
     articles = Article.objects.filter(author=request.user)
     context = {
         "articles":articles
     }
     return render(request,"article/dashboard.html",context)
+@login_required(login_url="user:login")
 def addarticle(request):
     form = articleForm(request.POST or None)
     if form.is_valid():
@@ -32,6 +35,7 @@ def detail(request,id):
         "post":post
     }
     return render(request,"article/detail.html",context)
+@login_required(login_url="user:login")
 def updateArticle(request,id):
     myarticle = get_object_or_404(Article,id=id)
     form = articleForm(request.POST or None, instance=myarticle)
@@ -44,7 +48,8 @@ def updateArticle(request,id):
     context = {
         "form": form
     }
-def deleteArticle(request):
+@login_required(login_url="user:login")
+def deleteArticle(request,id):
     myarticle = get_object_or_404(Article,id=id)
     myarticle.delete()
     messages.success(request,"Article has deleted successfully!")
