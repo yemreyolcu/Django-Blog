@@ -8,5 +8,7 @@ urlpatterns = [
     path('post/<int:id>',views.detail,name="detail"),
     path('update/<int:id>',views.updateArticle,name="update"),
     path('delete/<int:id>',views.deleteArticle,name="delete"),
+    path('comment/<int:id>',views.addcomment,name="postcomment"),
+    path('',views.allArticle,name="allarticle"),
 
 ]

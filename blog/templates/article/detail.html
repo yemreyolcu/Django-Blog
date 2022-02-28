@@ -4,18 +4,55 @@
         <div class="col-lg-8">
             <h3 class="mt-4"> {{ post.title }} </h3>
             <p class="lead">
-                by, {{ post.author.username }}
+                created by, {{ post.author.username }}
             </p>
             <hr>
             <p>
                 {{ post.date }}
             </p>
-            <hr>
-            <hr>
             <p class="lead">
                 {{ post.content }}
             </p>
             <hr>
+
+
+            <div class="card my-4">
+                <h5 class="card-header">Leave a comment: </h5>
+                <div class="card-body">
+                    <form action="{% url 'article:postcomment' post.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Name : </label>
+                            <input name="comment_author" type="text" class="form-control" id="formGroupExampleInput"
+                                   placeholder="Enter name ">
+                        </div>
+                        <div class="form-group">
+                            <label for="formGroupExampleInput">Comment : </label>
+                            <div class="form-group">
+                                <textarea name="comment_content" class="form-control" rows="3"
+                                          placeholder="Enter comment"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-danger" style="float: right; margin-top: 25px">Add
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% for comment in comments %}
+                {% if comments %}
+                    <i class="bi bi-code-slash fa-3x" style="color: cornflowerblue"></i>
+                    <div class="media mb-4">
+                        <div class="media-body">
+                            <h5 class="mt-0">{{ comment.comment_author }}</h5>
+                            {{ comment.comment_content }} <br>
+                            {{ comment.comment_date }}
+                            <hr>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-danger">There is no comment!</div>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

@@ -17,20 +17,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/todo">TO-DO</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="{% url 'article:dashboard' %}" id="dropdown03" data-bs-toggle="dropdown"
-                       aria-expanded="false">Articles</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown03">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'article:allarticle' %}">Articles</a>
                 </li>
+
             </ul>
             <ul class="navbar-nav ml-auto">
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Register</a>
+                        <a class="nav-link" href="{% url 'article:dashboard' %}">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -41,6 +36,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'register' %}">Register</a>
                     </li>
                 {% endif %}
             </ul>
