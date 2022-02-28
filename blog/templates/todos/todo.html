@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <h3 style="margin-bottom: 50px">TO-DO List</h3>
+
+
+     <div class="container">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Number</th>
+                <th scope="col">Title</th>
+                <th scope="col">Date</th>
+                <th scope="col">Is Finished?</th>
+                <th scope="col">Update</th>
+                <th scope="col">Remove</th>
+            </tr>
+
+            </thead>
+            {% for todos in todolist %}
+                <tr>
+                    <th scope="row">{{todos.id}}</th>
+                    <td><button type="button" class="btn btn-outline-secondary">{{todos.title}}</button></td>
+                    <td>{{todos.date}}</td>
+                                        <td><button type="button" class="btn btn-outline-secondary">{{todos.is_finished}}</button></td>
+                    <td><a href="{% url 'upttodo' todos.id %}" class="btn btn-primary">Update</a></td>
+                    <td><a href="{% url 'deltodo' todos.id %}" class="btn btn-danger">Delete</a></td>
+
+                </tr>
+            {% endfor %}
+
+        </table>
+         <hr>
+        <div style="float: right; margin-top: 25px">
+            <a href="{% url 'createtodo' %}">
+                <button class="btn btn-primary" >Create TO-DO</button>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

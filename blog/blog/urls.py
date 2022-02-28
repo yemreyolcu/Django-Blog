@@ -7,4 +7,5 @@ urlpatterns = [
     path('about/',views.about,name="about"),
     path('articles/',include("article.urls")),
     path('user/',include("user.urls")),
+    path('todo/',include("todo.urls")),
 ]
